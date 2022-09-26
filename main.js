@@ -31,5 +31,3 @@ BOOKS.shift();
 console.log(BOOKS);
 
 BOOKS.unshift(new Book("jajax", "ajax", 2022));
-
-console.log(BOOKS);
