@@ -1,3 +1,10 @@
+const $btnSubmit = document.getElementById("btnSubmit");
+const $result = document.getElementById("result");
+const $form = document.getElementById("form");
+const $name = document.getElementById("name");
+const $author = document.getElementById("author");
+const $year = document.getElementById("year");
+
 const BOOKS = [];
 
 class Book {
@@ -9,25 +16,26 @@ class Book {
   info() {
     return `${this.name} - ${this.author} ${this.year}`;
   }
-  updateYear(year) {
-    this.year = year;
-  }
 }
 
-console.log(BOOKS);
+$btnSubmit.addEventListener("click", addBook);
 
-const b1 = new Book("La Novia Gitana", "Carmen Mola", 2015);
+function addBook(event) {
+  if (!$form.checkValidity()) {
+    return $form.reportValidity();
+  }
 
-BOOKS.push(b1);
+  event.preventDefault();
 
-const b2 = new Book("La Red Púrpura", "Carmen Mola", 2019);
+  const newBook = new Book($name.value, $author.value, $year.value);
+  BOOKS.push(newBook);
 
-BOOKS.push(b2);
+  printBooks();
+}
 
-console.log(BOOKS);
-
-BOOKS.shift();
-
-console.log(BOOKS);
-
-BOOKS.unshift(new Book("jajax", "ajax", 2022));
+function printBooks() {
+  $result.innerHTML = "";
+  BOOKS.forEach((book) => {
+    $result.innerHTML += `<li>${book.info()}</li>`;
+  });
+}
